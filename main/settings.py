@@ -188,3 +188,4 @@ CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email settings (for development)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+""" estoes ahora como y donde se sube el servidor de django """
