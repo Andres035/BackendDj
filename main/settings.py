@@ -201,6 +201,7 @@ CORS_ALLOW_ALL_ORIGINS = False  # More secure than True in production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "https://themause.netlify.app"
 
 ]
 CORS_ALLOW_CREDENTIALS = True
