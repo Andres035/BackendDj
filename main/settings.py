@@ -127,6 +127,7 @@ cloudinary.config(
 
 
 # Django REST Framework + JWT
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',

@@ -41,7 +41,7 @@ class Command(BaseCommand):
             permisos_objects.append(p)
         
         # 3. Crear Usuario Admin
-        admin_user, created = Usuarios.objects.get_or_create(
+        admin_user, created_admin = Usuarios.objects.get_or_create(
             ci="13247291",
             defaults={
                 'nombre_usuario': "Andres Benito",
@@ -56,23 +56,46 @@ class Command(BaseCommand):
             }
         )
         
-        if created:
+        if created_admin:
             self.stdout.write(f"Usuario administrador creado: {admin_user}")
         
-        # 4. Asignar Rol al Usuario
         UsuariosRoles.objects.get_or_create(
             usuario=admin_user,
             rol=admin_role
         )
-        
+
+        # 4. Crear Segundo Usuario
+        segundo_usuario, created_user2 = Usuarios.objects.get_or_create(
+            ci="98765432",
+            defaults={
+                'nombre_usuario': "Maria Fernanda",
+                'apellido': "Lopez",
+                'fecha_nacimiento': date(1995, 5, 21),
+                'telefono': "76432109",
+                'correo': "maria.lopez@gmail.com",
+                'password': make_password("Maria1234*"),
+                'ci_departamento': "CB",
+                'estado_Usuario': True,
+                'imagen_url': "http://res.cloudinary.com/demo/image/upload/sample.jpg"
+            }
+        )
+
+        if created_user2:
+            self.stdout.write(f"Segundo usuario creado: {segundo_usuario}")
+
+        UsuariosRoles.objects.get_or_create(
+            usuario=segundo_usuario,
+            rol=admin_role
+        )
+
         # 5. Asignar Permisos al Rol
         for permiso in permisos_objects:
             RolesPermisos.objects.get_or_create(
                 rol=admin_role,
                 permiso=permiso
             )
-        
-        self.stdout.write(self.style.SUCCESS("Base de datos inicializada exitosamente!"))
+
+        self.stdout.write(self.style.SUCCESS("Base de datos inicializada exitosamente con dos usuarios!"))
 
         """ paso 1 """
         """ python manage.py initialize_db """ 
