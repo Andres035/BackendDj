@@ -76,21 +76,33 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 
 
+from decouple import config
+import dj_database_url
+
+DATABASE_URL = 'postgresql://postgres:13247291@localhost:5432/themauses'
 DATABASES = {
-    'default': {
+    
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='postgresql://postgres:13247291@localhost:5432/themauses')
+    ),
+    'local': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'themauses',
         'USER': 'postgres',
         'PASSWORD': '13247291',
         'HOST': 'localhost',
         'PORT': '5432',
+    },
+    'remote': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'themauses',
+        'USER': 'themauses_user',
+        'PASSWORD': 'feVslwNMHceEdHBpUnUsHZhYfbnjb5EM',
+        'HOST': 'dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
-DATABASES = {
-       'default': dj_database_url.config(default=config('DATABASE_URL', default='postgresql://postgres:13247291@localhost:5432/themauses'))
-}
 
-   
 
    
 # Password validation
