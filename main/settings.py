@@ -5,6 +5,7 @@ import cloudinary
 from decouple import config
 import dj_database_url
 
+# gunicorn main.wsgi:application
 # BASE DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
