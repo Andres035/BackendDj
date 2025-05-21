@@ -6,7 +6,13 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from confection import Config
+import os
+from django.core.wsgi import get_wsgi_application
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings')
+
+application = get_wsgi_application()
+   
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
