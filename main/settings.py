@@ -16,8 +16,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Hosts permitidos
 ALLOWED_HOSTS = ['*'] if DEBUG else ['themause.onrender.com']
-ALLOWED_HOSTS = ['backenddj-goq1.onrender.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['backenddj-1qj9.onrender.com', 'localhost', '127.0.0.1']
+  
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
