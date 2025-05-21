@@ -7,6 +7,9 @@ import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from confection import Config
 
+from decouple import config
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -82,6 +85,9 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
+}
+DATABASES = {
+       'default': dj_database_url.config(default=config('DATABASE_URL', default='postgresql://postgres:13247291@localhost:5432/themauses'))
 }
 
    
