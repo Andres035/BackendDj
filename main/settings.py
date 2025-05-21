@@ -85,6 +85,8 @@ DATABASES = {
 }
 
    
+
+   
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -181,6 +183,7 @@ CORS_ALLOW_ALL_ORIGINS = False  # More secure than True in production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
@@ -191,3 +194,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 """ estoes ahora como y donde se sube el servidor de django """
+""" se esta subiendo en render la base de datos es postgres y el servidor es el de render """
+# Render settings
