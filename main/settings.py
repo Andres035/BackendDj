@@ -10,6 +10,9 @@ from confection import Config
 from decouple import config
 import dj_database_url
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,14 +81,14 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 
 
-from decouple import config
-import dj_database_url
 
-DATABASE_URL = 'postgresql://postgres:13247291@localhost:5432/themauses'
+
 DATABASES = {
     
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='postgresql://postgres:13247291@localhost:5432/themauses')
+        default=os.getenv('DATABASE_URL', 'postgresql://themauses_user:feVslwNMHceEdHBpUnUsHZhYfbnjb5EM@dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com/themauses'),
+        conn_max_age=600,
+        ssl_require=True
     ),
     'local': {
         'ENGINE': 'django.db.backends.postgresql',
