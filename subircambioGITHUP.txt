@@ -1,0 +1,11 @@
+cd ruta/a/tu/carpeta          # Navega a tu carpeta del proyecto
+
+git status                    # Verifica el estado del repositorio
+
+git add .                     # Agrega todos los cambios al área de preparación
+
+git commit -m "Descripción de los cambios realizados"  # Realiza un commit
+
+git remote add origin https://github.com/Andres66666/BackendDj.git          # cambia el enlace para hacer los cambios enla carpeta correcta o mejor dicho en GitHub
+
+git push origin main          # Sube los cambios al repositorio en GitHub

@@ -1,0 +1,41 @@
+crear un whatsap con bontones y lista par aresponder automaticamente
+
+# Comandos para subir al repositorio de GitHup
+
+ojo entrar a esta ruta para cambiar a los usuarios de git 
+Panel de control\Todos los elementos de Panel de control\Administrador de credenciales
+
+📦 RESUMEN RÁPIDO (puro comandos)
+
+git config --global user.name "TuNombreDeUsuarioGitHub"
+git config --global user.email "tu_correo@example.com"
+
+git init
+git status
+git add .
+git commit -m "Primer commit"
+
+git remote add origin https://github.com/Andres035/TiendaFrontendAG.git
+git remoto agregar origen https://github.com/Andres035/TiendaFrontendAG.git
+git push -u origin main
+
+
+
+
+⚡ ¡Y listo, tu proyecto estará en GitHub! ⚡
+
+…o crear un nuevo repositorio en la línea de comandos
+
+echo "# TiendaFrontendAG" >> README.md 
+git init 
+git add README.md 
+git commit -m "primer commit" 
+git branch -M main 
+git remote add origin https://github.com/Andres035/TiendaFrontendAG.git
+ git push -u origin main
+
+
+ …o enviar un repositorio existente desde la línea de comandos
+git remoto agregar origen https://github.com/Andres035/TiendaFrontendAG.git
+ git rama -M principal 
+git push -u origen principal
