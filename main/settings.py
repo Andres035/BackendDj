@@ -111,16 +111,19 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Cloudinary configuración
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUD_NAME'),
-    'API_KEY': config('CLOUDINARY_API_KEY'),
-    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': os.getenv('CLOUD_NAME', 'dverop5st'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '863615111676844'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', '3lbT8eRwP0sGi2DMhRCexFbyPtI'),
     'SECURE': True,
 }
+
+# Configuración de Cloudinary
 cloudinary.config(
     cloud_name="dverop5st",
     api_key="863615111676844",
     api_secret="3lbT8eRwP0sGi2DMhRCexFbyPtI"
 )
+
 
 # Django REST Framework + JWT
 REST_FRAMEWORK = {
