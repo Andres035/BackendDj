@@ -150,6 +150,7 @@ SPECTACULAR_SETTINGS = {
 # CORS
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
     "https://themause.netlify.app"
 ]
 CORS_ALLOW_CREDENTIALS = True
