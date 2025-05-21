@@ -9,13 +9,14 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Clave secreta
-SECRET_KEY = config('SECRET_KEY')
-
+SECRET_KEY = os.getenv('SECRET_KEY', 'valor-por-defecto-para-desarrollo')
 # Modo debug
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Hosts permitidos
 ALLOWED_HOSTS = ['*'] if DEBUG else ['themause.onrender.com']
+ALLOWED_HOSTS = ['backenddj-goq1.onrender.com', 'localhost', '127.0.0.1']
+
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -24,10 +25,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+     'cloudinary_storage',
     'django.contrib.staticfiles',
 
     # Terceros
-    'cloudinary_storage',
+    
     'cloudinary',
     'rest_framework',
     'corsheaders',
@@ -72,14 +74,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 # Base de datos
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'themauses'),  # Valor por defecto si no existe la variable
+        'USER': os.getenv('DB_USER', 'themauses_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'feVslwNMHceEdHBpUnUsHZhYfbnjb5EM'),
+        'HOST': os.getenv('DB_HOST', 'dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -96,7 +101,8 @@ USE_TZ = True
 
 # Archivos estáticos
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Archivos multimedia
@@ -111,10 +117,9 @@ CLOUDINARY_STORAGE = {
     'SECURE': True,
 }
 cloudinary.config(
-    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
-    api_key=CLOUDINARY_STORAGE['API_KEY'],
-    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
-    secure=True,
+    cloud_name="dverop5st",
+    api_key="863615111676844",
+    api_secret="3lbT8eRwP0sGi2DMhRCexFbyPtI"
 )
 
 # Django REST Framework + JWT
@@ -151,7 +156,11 @@ SPECTACULAR_SETTINGS = {
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
+    "http://127.0.0.1:4200",
     "https://themause.netlify.app"
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://themause.netlify.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
