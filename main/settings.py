@@ -2,21 +2,19 @@ import os
 from pathlib import Path
 from datetime import timedelta
 import cloudinary
-import cloudinary.uploader
-from cloudinary.utils import cloudinary_url
 from decouple import config
 import dj_database_url
 
-# BASE_DIR
+# BASE DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-key-for-dev')
+# Clave secreta
+SECRET_KEY = config('SECRET_KEY')
 
-# DEBUG mode
-DEBUG = config('DEBUG', default=True, cast=bool)
+# Modo debug
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-# ALLOWED HOSTS
+# Hosts permitidos
 ALLOWED_HOSTS = ['*'] if DEBUG else ['themause.onrender.com']
 
 # Aplicaciones instaladas
@@ -51,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URLs
 ROOT_URLCONF = 'main.urls'
 
 # Templates
@@ -72,22 +71,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-# ------------------------
-# DATABASE
-# ------------------------
-
+# Base de datos
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://themauses_user:feVslwNMHceEdHBpUnUsHZhYfbnjb5EM@dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com/themauses',
+        default=config('DATABASE_URL'),
         conn_max_age=600,
         ssl_require=True
     )
 }
 
-# ------------------------
-# CONTRASEÑAS
-# ------------------------
-
+# Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -95,34 +88,26 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ------------------------
-# INTERNACIONALIZACIÓN
-# ------------------------
-
+# Internacionalización
 LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'America/Lima'
 USE_I18N = True
 USE_TZ = True
 
-# ------------------------
-# STATIC Y MEDIA
-# ------------------------
-
+# Archivos estáticos
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Archivos multimedia
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# ------------------------
-# CLOUDINARY
-# ------------------------
-
+# Cloudinary configuración
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dverop5st',
-    'API_KEY': '863615111676844',
-    'API_SECRET': '3lbT8eRwP0sGi2DMhRCexFbyPtI',
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
     'SECURE': True,
 }
 cloudinary.config(
@@ -132,10 +117,7 @@ cloudinary.config(
     secure=True,
 )
 
-# ------------------------
-# REST FRAMEWORK Y JWT
-# ------------------------
-
+# Django REST Framework + JWT
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'],
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication'],
@@ -148,6 +130,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
 }
 
+# DRF Spectacular (documentación Swagger/OpenAPI)
 SPECTACULAR_SETTINGS = {
     'TITLE': 'FreeMarket API',
     'DESCRIPTION': 'API para el sistema de ventas FreeMarket',
@@ -159,34 +142,23 @@ SPECTACULAR_SETTINGS = {
             'type': 'apiKey',
             'name': 'Authorization',
             'in': 'header',
-            'description': 'Token JWT in the format: Bearer <token>',
+            'description': 'Token JWT en el formato: Bearer <token>',
         }
     },
 }
 
-# ------------------------
 # CORS
-# ------------------------
-
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
     "https://themause.netlify.app"
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS.copy()
 
-# ------------------------
-# EMAIL DEV
-# ------------------------
-
+# Correo en desarrollo
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# ------------------------
-# PRODUCCIÓN EN RENDER
-# ------------------------
-
+# Configuraciones de seguridad para producción
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -196,8 +168,5 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# ------------------------
-# PRIMARY KEY DEFAULT
-# ------------------------
-
+# Auto primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
