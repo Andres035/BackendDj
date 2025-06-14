@@ -84,14 +84,16 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'ERMDtLlspadbrHFCEySgYIaXOJzQrjvO',
+        'HOST': 'hopper.proxy.rlwy.net',
+        'PORT': '26606',
     }
 }
-
+#postgresql://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway
+#PGPASSWORD=ERMDtLlspadbrHFCEySgYIaXOJzQrjvO psql -h hopper.proxy.rlwy.net -U postgres -p 26606 -d railway
+#railway connect Postgres-YQkW
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
