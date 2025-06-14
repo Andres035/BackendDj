@@ -1,0 +1,33 @@
+✅ Cómo confirmar que los modelos fueron migrados
+Abre la consola de Django:
+
+bash
+Copiar
+Editar
+python manage.py dbshell
+Y ejecuta:
+
+sql
+Copiar
+Editar
+\dt
+Verás la lista de tablas. Deben aparecer todas las que comienzan con users_.
+
+✅ Cómo listar los modelos registrados
+Corre este comando:
+
+bash
+Copiar
+Editar
+python manage.py showmigrations users
+Y también:
+
+bash
+Copiar
+Editar
+python manage.py inspectdb
+
+
+
+python manage.py makemigrations users
+python manage.py migrate

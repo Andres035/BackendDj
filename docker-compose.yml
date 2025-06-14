@@ -1,32 +1,26 @@
 # docker-compose.yml   C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\docker-compose.yml
 
-version: "3.9"
+version: '3.9'
 
 services:
-  web:
+
+  django:
     build: .
-    container_name: django_app
-    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app
+    restart: always
     ports:
       - "8000:8000"
-    env_file:
-      - .env
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15
-    container_name: postgres_main
-    environment:
-      POSTGRES_DB: themauses
-      POSTGRES_USER: themauses_user
-      POSTGRES_PASSWORD: feVslwNMHceEdHBpUnUsHZhYfbnjb5EM
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - .:/app
+    depends_on:
+      - postgres
 
-volumes:
-  postgres_data:
+  postgres:
+    image: postgres:14.3-alpine3.16
+    ports:
+      - "5431:5432"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
