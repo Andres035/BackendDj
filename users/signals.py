@@ -1,8 +1,9 @@
-# signals.py
-from django.db.models.signals import post_save
+# signals.py C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\users\signals.py
 from django.dispatch import receiver
 from django.db import connections
 from .models import Usuarios
+from django.db.models.signals import post_save, post_delete
+
 
 @receiver(post_save, sender=Usuarios)
 def replicar_usuario_en_fly(sender, instance, created, **kwargs):

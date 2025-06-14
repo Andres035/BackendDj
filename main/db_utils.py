@@ -1,3 +1,4 @@
+#  C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\main\db_utils.py
 from django.db import connections
 
 def consulta_desde_replica():

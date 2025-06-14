@@ -92,7 +92,8 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     
     },
-    'replica': {
+
+    'replicarailway': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('REPLICA_NAME'),
         'USER': os.getenv('REPLICA_USER'),
@@ -103,9 +104,6 @@ DATABASES = {
             'sslmode': 'require'
         }
     }
-
-
-
 }
 
 

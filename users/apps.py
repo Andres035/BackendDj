@@ -1,4 +1,4 @@
-#apps.py
+#apps.py  C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\users\apps.py
 from django.apps import AppConfig
 
 

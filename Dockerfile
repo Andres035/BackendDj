@@ -1,4 +1,4 @@
-# Dockerfile
+# Dockerfile  C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\Dockerfile
 
 # Usamos una imagen oficial de Python
 FROM python:3.10-slim
