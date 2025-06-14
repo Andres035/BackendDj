@@ -799,6 +799,7 @@ COPY public.users_roles (id, nombre_rol, "estado_Rol") FROM stdin;
 1	Administrador	t
 2	Empleado	t
 3	Cliente	t
+4	Cliente 1	t
 \.
 
 
@@ -947,7 +948,7 @@ SELECT pg_catalog.setval('public.users_productos_id_seq', 1, false);
 -- Name: users_roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: themauses_user
 --
 
-SELECT pg_catalog.setval('public.users_roles_id_seq', 3, true);
+SELECT pg_catalog.setval('public.users_roles_id_seq', 4, true);
 
 
 --
