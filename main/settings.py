@@ -79,36 +79,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-# Base de datos
-print("REPLICA_HOST:", os.getenv('REPLICA_HOST'))  # temporal
-DATABASE_ROUTERS = ['main.db_router.ReplicaRouter']
+
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'themauses'),  # Valor por defecto si no existe la variable
-        'USER': os.getenv('DB_USER', 'themauses_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'feVslwNMHceEdHBpUnUsHZhYfbnjb5EM'),
-        'HOST': os.getenv('DB_HOST', 'dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    
-    },
-    'railway': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('RAILWAY_DB_NAME', 'railway'),
-            'USER': os.getenv('RAILWAY_DB_USER', 'postgres'),
-            'PASSWORD': os.getenv('RAILWAY_DB_PASSWORD', 'rXABaWfdOOLZcgWGARTMmmOJjYlkUuBU'),
-            'HOST': os.getenv('RAILWAY_DB_HOST', 'postgres-01bh.railway.internal'),
-            'PORT': os.getenv('RAILWAY_DB_PORT', '5432'),
-            'OPTIONS': {
-                'sslmode': 'require',
-            },
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'ERMDtLlspadbrHFCEySgYIaXOJzQrjvO',
+        'HOST': 'hopper.proxy.rlwy.net',
+        'PORT': '26606',
     }
-
+    
     
 }
-
-
+#postgresql://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway
+#PGPASSWORD=ERMDtLlspadbrHFCEySgYIaXOJzQrjvO psql -h hopper.proxy.rlwy.net -U postgres -p 26606 -d railway
+#railway connect Postgres-YQkW
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

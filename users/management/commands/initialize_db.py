@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Inicializa ambas bases de datos con datos básicos'
 
     def handle(self, *args, **kwargs):
-        for db in ['default', 'railway']:
+        for db in ['default']:
             self.stdout.write(f"\nInicializando base de datos: {db}...\n")
 
             # 1. Crear Rol
