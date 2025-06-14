@@ -1,0 +1,3 @@
+# Ejecutar el script sync_db.sh cada 12 horas
+*/2 * * * * /app/sync_db.sh >> /var/log/sync_db.log 2>&1
+
