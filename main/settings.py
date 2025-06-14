@@ -23,7 +23,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['*'] if DEBUG else ['themause.onrender.com']
 ALLOWED_HOSTS = ['backenddj-1.onrender.com', 'localhost', '127.0.0.1']
   
-#https://backenddj-1qj9.onrender.com    https://backenddj-1.onrender.com
+#   https://backenddj-1.onrender.com
 # Aplicaciones instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -94,7 +94,7 @@ DATABASES = {
     
     },
 
-    'replicarailway': {
+    'railway': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('REPLICA_NAME'),
         'USER': os.getenv('REPLICA_USER'),
