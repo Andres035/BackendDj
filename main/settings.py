@@ -5,6 +5,11 @@ import cloudinary
 from decouple import config
 import dj_database_url
 
+from dotenv import load_dotenv
+load_dotenv()
+from django.db import connections
+
+
 # gunicorn main.wsgi:application
 # BASE DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,6 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 # Base de datos
+print("REPLICA_HOST:", os.getenv('REPLICA_HOST'))  # temporal
 
 DATABASES = {
     'default': {
@@ -84,8 +90,25 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD', 'feVslwNMHceEdHBpUnUsHZhYfbnjb5EM'),
         'HOST': os.getenv('DB_HOST', 'dpg-d0mu25umcj7s739lbnkg-a.oregon-postgres.render.com'),
         'PORT': os.getenv('DB_PORT', '5432'),
+    
+    },
+    'replica': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('REPLICA_NAME'),
+        'USER': os.getenv('REPLICA_USER'),
+        'PASSWORD': os.getenv('REPLICA_PASSWORD'),
+        'HOST': os.getenv('REPLICA_HOST'),
+        'PORT': os.getenv('REPLICA_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require'
+        }
     }
+
+
+
 }
+
+
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
