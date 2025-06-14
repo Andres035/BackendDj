@@ -81,6 +81,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # Base de datos
 print("REPLICA_HOST:", os.getenv('REPLICA_HOST'))  # temporal
+DATABASE_ROUTERS = ['main.db_router.ReplicaRouter']
 
 DATABASES = {
     'default': {
