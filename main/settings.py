@@ -93,18 +93,19 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     
     },
-
-   'railway': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('RAILWAY_DB_NAME', 'railway'),
-        'USER': os.getenv('RAILWAY_DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('RAILWAY_DB_PASSWORD', 'gbpHvfcTWCbbNrOdwkqzIyAZZABlEWId'),
-        'HOST': os.getenv('RAILWAY_DB_HOST', 'switchback.proxy.rlwy.net'),
-        'PORT': os.getenv('RAILWAY_DB_PORT', '54996'),
-        'OPTIONS': {
-            'sslmode': 'require'
-        }
+    'railway': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('RAILWAY_DB_NAME', 'railway'),
+            'USER': os.getenv('RAILWAY_DB_USER', 'postgres'),
+            'PASSWORD': os.getenv('RAILWAY_DB_PASSWORD', 'rXABaWfdOOLZcgWGARTMmmOJjYlkUuBU'),
+            'HOST': os.getenv('RAILWAY_DB_HOST', 'postgres-01bh.railway.internal'),
+            'PORT': os.getenv('RAILWAY_DB_PORT', '5432'),
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
     }
+
+    
 }
 
 

@@ -3,16 +3,17 @@ from django.db.utils import OperationalError
 
 class ReplicaRouter:
     def db_for_read(self, model, **hints):
-        # Siempre leer desde 'default'
-        return 'default'
+        return 'default'  # Siempre leer de default
 
     def db_for_write(self, model, **hints):
-        # Escribir en 'default'
-        return 'default'
+        return 'default'  # Siempre escribir en default
 
     def allow_relation(self, obj1, obj2, **hints):
-        return True
+        return True  # Permite relaciones entre bases
 
-    def allow_migrate(self, db, app_label, model_name=None, **hints):
-        # Migrar solo en la base de datos 'default'
-        return db == 'default'
+    def allow_migrate(self, db, app_label, model=None, **hints):
+        if db == 'railway':
+            return True
+        if db == 'default':
+            return True
+        return False

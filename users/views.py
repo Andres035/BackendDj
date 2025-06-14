@@ -20,7 +20,7 @@ import cloudinary.uploader
 
 from .models import Categorias, DetallesVentas, Permisos, Productos,  Roles,  Usuarios, RolesPermisos, UsuariosRoles, Ventas
 from .serializers import   CategoriaSerializer,  DetallesVentasSerializer, PermisosSerializer,  ProductoSerializer, RolSerializer, RolesPermisosSerializer, UsuarioSerializer, LoginSerializer, UsuariosRolesSerializer, VentaSerializer
-from django.db import connections, transaction
+
 
 """ esto es la seccion de login """
 # backend
@@ -83,49 +83,23 @@ class LoginView(APIView):
             return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
 # ViewSet for Permisos
-from django.db import connections
-
 class PermisosViewSet(viewsets.ModelViewSet):
     queryset = Permisos.objects.all()
     serializer_class = PermisosSerializer
-
     def create(self, request, *args, **kwargs):
+        # Extraer datos del request
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        permiso = serializer.save()
-
-        # Replicar en railway
-        try:
-            with connections['railway'].cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO users_permisos (id, nombre_permiso, descripcion, estado_permiso)
-                    VALUES (%s, %s, %s, %s)
-                """, [permiso.id, permiso.nombre_permiso, permiso.descripcion, permiso.estado_Permiso])
-        except Exception as e:
-            print("Error replicando permiso en Railway:", e)
-
+        serializer.is_valid(raise_exception=True)  # Valida los datos
+        self.perform_create(serializer)  # Guarda el nuevo permiso
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
-        partial = True
-        instance = self.get_object()
+        partial = True  # Permite actualizaciones parciales
+        instance = self.get_object()  # Obtiene la instancia del permiso a actualizar
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        permiso = serializer.save()
-
-        # Replicar actualización en Railway
-        try:
-            with connections['railway'].cursor() as cursor:
-                cursor.execute("""
-                    UPDATE users_permisos
-                    SET nombre_permiso = %s, descripcion = %s, estado_permiso = %s
-                    WHERE id = %s
-                """, [permiso.nombre_permiso, permiso.descripcion, permiso.estado_Permiso, permiso.id])
-        except Exception as e:
-            print("Error actualizando permiso en Railway:", e)
-
+        serializer.is_valid(raise_exception=True)  # Valida los datos
+        self.perform_update(serializer)  # Actualiza el permiso
         return Response(serializer.data)
-
 # ViewSet for Roles
 class RolesViewSet(viewsets.ModelViewSet):
     queryset = Roles.objects.all()
@@ -172,26 +146,6 @@ class UsuariosViewSet(viewsets.ModelViewSet):
 
         # Crear el usuario
         usuario = Usuarios.objects.create(**data)
-
-         # Replicar en Railway manualmente
-        try:
-            with connections['railway'].cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO users_usuarios (
-                        id, nombre_usuario, apellido, fecha_nacimiento, telefono,
-                        correo, password, ci, ci_departamento,
-                        fecha_creacion, fecha_actualizacion, estado_usuario, imagen_url
-                    ) VALUES (
-                        %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW(), %s, %s
-                    )
-                """, [
-                    usuario.id, usuario.nombre_usuario, usuario.apellido, usuario.fecha_nacimiento,
-                    usuario.telefono, usuario.correo, usuario.password, usuario.ci,
-                    usuario.ci_departamento, usuario.estado_Usuario, usuario.imagen_url
-                ])
-        except Exception as e:
-            print("Error al replicar en Railway:", str(e))
-
         return Response(UsuarioSerializer(usuario).data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
