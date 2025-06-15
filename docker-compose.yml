@@ -1,13 +1,30 @@
 # docker-compose.yml   C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\docker-compose.yml
 version: '3.9'
-
 services:
-  django:
-    build: .
-    restart: always
+  db_master:
+    image: postgres:15
+    container_name: db_master
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ERMDtLlspadbrHFCEySgYIaXOJzQrjvO
+      POSTGRES_DB: railway
     ports:
-      - "8000:8000"
+      - "5433:5432"
     volumes:
-      - .:/app
-    env_file:
-      - .env
+      - master_data:/var/lib/postgresql/data
+
+  db_replica:
+    image: postgres:15
+    container_name: db_replica
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: replicapass
+      POSTGRES_DB: replicadb
+    ports:
+      - "5434:5432"
+    volumes:
+      - replica_data:/var/lib/postgresql/data
+
+volumes:
+  master_data:
+  replica_data:

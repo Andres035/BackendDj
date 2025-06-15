@@ -80,7 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
-
+# base datos maestro
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -91,10 +91,27 @@ DATABASES = {
         'PORT': '26606',
     }
 }
-#postgresql://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway
-#PGPASSWORD=ERMDtLlspadbrHFCEySgYIaXOJzQrjvO psql -h hopper.proxy.rlwy.net -U postgres -p 26606 -d railway
-#railway connect Postgres-YQkW
-# Validadores de contraseñas
+
+# base de datos replica 
+# postgresql://postgres:blCPlgNqEtUqPMEEKEsVEkPvNbXMtwOH@nozomi.proxy.rlwy.net:40484/railway
+# PGPASSWORD=blCPlgNqEtUqPMEEKEsVEkPvNbXMtwOH psql -h nozomi.proxy.rlwy.net -U postgres -p 40484 -d railway  
+# railway connect Postgres
+
+# base de datos replica render 
+""" | Campo                 | Valor                                                   |
+| --------------------- | ------------------------------------------------------- |
+| **Destination name**  | `Postgres_Replica`                                      |
+| **Host**              | `dpg-d170fop5pdvs73fr7ldg-a.oregon-postgres.render.com` |
+| **Port**              | `5432`                                                  |
+| **DB Name**           | `basereplica`                                           |
+| **Default Schema**    | `public`                                                |
+| **User**              | `basereplica_user`                                      |
+| **Password**          | `IWvN1xty9pRdSEJ8ogokq5VOXAm7Krx1`                      |
+| **SSL Mode**          | `require` (recomendado para conexiones externas)        |
+| **SSH Tunnel Method** | `No Tunnel`                                             |
+ """
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
