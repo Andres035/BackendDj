@@ -1,3 +1,4 @@
+# C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\main\settings.py
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # base datos maestro
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
@@ -90,6 +91,11 @@ DATABASES = {
         'HOST': 'hopper.proxy.rlwy.net',
         'PORT': '26606',
     }
+}
+ """
+# Base de datos
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL','postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway'))
 }
 
 # base de datos replica 
@@ -214,3 +220,5 @@ if not DEBUG:
 
 # Auto primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
