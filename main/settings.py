@@ -93,10 +93,25 @@ WSGI_APPLICATION = 'main.wsgi.application'
     }
 }
  """
-# Base de datos
+
+
+# Base de datos principal
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL','postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway'))
+    'default': dj_database_url.config(
+        default=os.getenv(
+            'DATABASE_URL',
+            'postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway'
+        )
+    )
 }
+
+# Base de datos réplica
+DATABASES['replica'] = dj_database_url.parse(
+    os.getenv(
+        'REPLICA_DATABASE_URL',
+        'postgres://postgres:blCPlgNqEtUqPMEEKEsVEkPvNbXMtwOH@nozomi.proxy.rlwy.net:40484/railway'
+    )
+)
 
 # base de datos replica 
 # postgresql://postgres:blCPlgNqEtUqPMEEKEsVEkPvNbXMtwOH@nozomi.proxy.rlwy.net:40484/railway

@@ -18,8 +18,25 @@ import json
 from cloudinary.uploader import upload
 import cloudinary.uploader
 
+
+
 from .models import Categorias, DetallesVentas, Permisos, Productos,  Roles,  Usuarios, RolesPermisos, UsuariosRoles, Ventas
 from .serializers import   CategoriaSerializer,  DetallesVentasSerializer, PermisosSerializer,  ProductoSerializer, RolSerializer, RolesPermisosSerializer, UsuarioSerializer, LoginSerializer, UsuariosRolesSerializer, VentaSerializer
+
+
+
+
+# main/views.py
+from BackendDj.main.utils.db_utils import use_replica
+from django.shortcuts import render
+from .models import MiModelo
+
+def mi_vista(request):
+    # Usamos la base de datos réplica para la consulta
+    use_replica()
+    
+    objetos = MiModelo.objects.all()  # Esto usará la base de datos réplica
+    return render(request, 'mi_template.html', {'objetos': objetos})
 
 
 """ esto es la seccion de login """

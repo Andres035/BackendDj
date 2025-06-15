@@ -1,4 +1,3 @@
-#  C:\Users\benit\Downloads\Tienda-Online-main\BackendDj\docker-compose.yml
 version: '3.8'
 
 services:
@@ -13,6 +12,17 @@ services:
     networks:
       - backend_network
 
+  db_replica:
+    image: postgres:13
+    volumes:
+      - postgres_replica_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: railway
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: replica_password  # Cambia por la contraseña de la réplica
+    networks:
+      - backend_network
+
   web:
     build: .
     command: ["gunicorn", "main.wsgi:application", "--bind", "0.0.0.0:8000"]
@@ -22,13 +32,16 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@db:5432/railway
+      - REPLICA_DATABASE_URL=postgres://postgres:replica_password@db_replica:5432/railway  # URL para la base de datos réplica
     depends_on:
       - db
+      - db_replica
     networks:
       - backend_network
 
 volumes:
   postgres_data:
+  postgres_replica_data:
 
 networks:
   backend_network:
