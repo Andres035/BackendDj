@@ -93,19 +93,12 @@ WSGI_APPLICATION = 'main.wsgi.application'
     }
 }
  """
-
-
-# Base de datos principal
+# Base de datos
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv(
-            'DATABASE_URL',
-            'postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway'
-        )
-    )
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL','postgres://postgres:ERMDtLlspadbrHFCEySgYIaXOJzQrjvO@hopper.proxy.rlwy.net:26606/railway'))
 }
 
-# Base de datos réplica
+# Si quieres usar la réplica en Django, puedes configurarlo como una base de datos adicional.
 DATABASES['replica'] = dj_database_url.parse(
     os.getenv(
         'REPLICA_DATABASE_URL',
